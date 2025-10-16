@@ -3,11 +3,10 @@ package kr.ac.uc.letseat.ui
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import kr.ac.uc.letseat.R
 import kr.ac.uc.letseat.adapters.CartAdapter
 import kr.ac.uc.letseat.models.MenuItem
@@ -15,58 +14,43 @@ import kr.ac.uc.letseat.models.MenuItem
 class CartActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var totalText: TextView
+    private lateinit var checkoutButton: Button
     private lateinit var adapter: CartAdapter
+
     private val cartList = mutableListOf<MenuItem>()
-    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
         recyclerView = findViewById(R.id.cartRecyclerView)
+        totalText = findViewById(R.id.txtCartTotal)
+        checkoutButton = findViewById(R.id.btnCheckout)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = CartAdapter(cartList)
+        // 🧩 Example data — replace later with real cart items
+        cartList.add(MenuItem("Buff Sekuwa", 200.0, "", 1))
+        cartList.add(MenuItem("Chicken Sekuwa", 180.0, "", 1))
+
+        adapter = CartAdapter(cartList) {
+            updateTotal()
+        }
+
         recyclerView.adapter = adapter
+        updateTotal()
 
-        // ✅ Load Cart Items
-        loadCart()
-
-        // ✅ Checkout button
-        val checkoutBtn: Button = findViewById(R.id.btnCheckout)
-        checkoutBtn.setOnClickListener {
-            if (cartList.isNotEmpty()) {
-                val intent = Intent(this, CheckoutActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Cart is empty", Toast.LENGTH_SHORT).show()
-            }
+        checkoutButton.setOnClickListener {
+            val total = cartList.sumOf { it.price * it.quantity }
+            val intent = Intent(this, CheckoutActivity::class.java)
+            intent.putExtra("total", total)
+            startActivity(intent)
         }
     }
 
-    private fun loadCart() {
-        db.collection("users").document("demoUser").collection("cart")
-            .get()
-            .addOnSuccessListener { result ->
-                cartList.clear()
-                for (doc in result) {
-                    val name = doc.getString("name") ?: "Unknown"
-                    val price = doc.getDouble("price") ?: 0.0
-                    val imageUrl = doc.getString("imageUrl") ?: ""
-                    val qty = doc.getLong("quantity")?.toInt() ?: 1
-
-                    val item = MenuItem(
-                        name = name,
-                        price = price,
-                        imageUrl = imageUrl,
-                        quantity = qty
-                    )
-                    cartList.add(item)
-                }
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to load cart", Toast.LENGTH_SHORT).show()
-            }
+    private fun updateTotal() {
+        val total = cartList.sumOf { it.price * it.quantity }
+        totalText.text = "Total: Rs. %.1f".format(total)
     }
 }

@@ -4,14 +4,18 @@
 
     <application
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Lets Eat"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LetsEat">
+        android:theme="@style/Theme.LetsEat"
+        android:usesCleartextTraffic="true">
 
-        <!-- 🔑 Launcher Activity -->
-        <activity android:name=".ui.LoginActivity"
+        <!-- 🟢 Launcher (First screen when app opens) -->
+        <activity
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,31 +23,21 @@
             </intent-filter>
         </activity>
 
-        <!-- Hotel List screen -->
-        <activity android:name=".ui.HotelListActivity"
-            android:exported="true" />
+        <!-- 🟣 User flow screens -->
+        <activity android:name=".ui.SignupActivity" android:exported="false" />
+        <activity android:name=".ui.MainActivity" android:exported="false" />
+        <activity android:name=".ui.HotelListActivity" android:exported="false" />
+        <activity android:name=".ui.MenuActivity" android:exported="false" />
+        <activity android:name=".ui.MenuListActivity" android:exported="false" />
+        <activity android:name=".ui.CartActivity" android:exported="false" />
+        <activity android:name=".ui.CheckoutActivity" android:exported="false" />
+        <activity android:name=".ui.OrderStatusActivity" android:exported="false" />
 
-        <!-- Menu List screen -->
-        <activity android:name=".ui.MenuListActivity"
-            android:exported="true" />
-
-        <!-- Signup screen -->
-        <activity android:name=".ui.SignupActivity"
-            android:exported="true" />
-
-        <!-- Main screen -->
-        <activity android:name=".ui.MainActivity"
-            android:exported="true" />
-
-        <!-- ✅ Added new activities -->
-        <activity android:name=".ui.CartActivity"
-            android:exported="true" />
-
-        <activity android:name=".ui.CheckoutActivity"
-            android:exported="true" />
-
-        <activity android:name=".ui.OrderStatusActivity"
-            android:exported="true" />
+        <!-- 🧠 Seeder (for Firebase test data, NOT launcher) -->
+        <activity
+            android:name=".ui.DataSeederActivity"
+            android:exported="false" />
 
     </application>
+
 </manifest>

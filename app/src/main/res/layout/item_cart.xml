@@ -3,21 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="16dp"
+    android:gravity="center_vertical">
 
     <TextView
-        android:id="@+id/cartItemName"
+        android:id="@+id/txtCartItemName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Dish x1"
-        android:textSize="16sp" />
+        android:layout_weight="2"
+        android:text="Chicken Sekuwa"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#000" />
 
     <TextView
-        android:id="@+id/cartItemPrice"
+        android:id="@+id/txtCartItemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rs. 200"
+        android:text="Rs. 180"
+        android:textColor="#000"
+        android:layout_marginEnd="12dp"/>
+
+    <Button
+        android:id="@+id/btnDecrease"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:text="-"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtCartItemQuantity"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="×1"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textColor="#000" />
+
+    <Button
+        android:id="@+id/btnIncrease"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:text="+"
+        android:textSize="18sp" />
 </LinearLayout>
