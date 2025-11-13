@@ -15,13 +15,6 @@ class RestaurantAdapter(
     private val onClick: (Restaurant) -> Unit
 ) : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
-    inner class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.imageRestaurant)
-        val name: TextView = view.findViewById(R.id.txtRestaurantName)
-        val location: TextView = view.findViewById(R.id.txtRestaurantLocation)
-        val rating: TextView = view.findViewById(R.id.txtRestaurantRating)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_hotel, parent, false)
@@ -32,7 +25,7 @@ class RestaurantAdapter(
         val restaurant = restaurantList[position]
 
         holder.name.text = restaurant.name
-        holder.location.text = restaurant.location // ✅ fixed line
+        holder.location.text = restaurant.location
         holder.rating.text = "⭐ ${restaurant.rating}"
 
         Glide.with(holder.itemView.context)
@@ -46,4 +39,11 @@ class RestaurantAdapter(
     }
 
     override fun getItemCount(): Int = restaurantList.size
+
+    class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val image: ImageView = itemView.findViewById(R.id.imageRestaurant)
+        val name: TextView = itemView.findViewById(R.id.txtRestaurantName)
+        val location: TextView = itemView.findViewById(R.id.txtRestaurantLocation)
+        val rating: TextView = itemView.findViewById(R.id.txtRestaurantRating)
+    }
 }

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.LetsEat"
         android:usesCleartextTraffic="true">
 
-        <!-- Launcher (First screen when app opens) -->
+        <!-- Launcher -->
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true">
@@ -23,26 +23,22 @@
             </intent-filter>
         </activity>
 
-        <!-- Signup Screen -->
+        <!-- Customer screens -->
         <activity android:name=".ui.SignupActivity" />
-
-        <!-- Main Screen (after login) -->
         <activity android:name=".ui.MainActivity" />
-
-        <!-- Hotel / Restaurant List -->
         <activity android:name=".ui.HotelListActivity" />
-
-        <!-- Menu (Restaurant food items) -->
         <activity android:name=".ui.MenuActivity" />
-
-        <!-- Cart -->
         <activity android:name=".ui.CartActivity" />
-
-        <!-- Checkout -->
         <activity android:name=".ui.CheckoutActivity" />
-
-        <!-- Order Status -->
         <activity android:name=".ui.OrderStatusActivity" />
+
+        <!-- ✅ DRIVER SCREENS -->
+        <activity android:name=".driver.DriverLoginActivity" />
+        <activity android:name=".driver.DriverHomeActivity" />
+
+        <!-- ✅ OWNER SCREENS -->
+        <activity android:name=".owner.OwnerLoginActivity" />
+        <activity android:name=".owner.OwnerDashboardActivity" />
 
     </application>
 

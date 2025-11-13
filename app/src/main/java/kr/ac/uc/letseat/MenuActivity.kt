@@ -20,7 +20,10 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var adapter: MenuAdapter
     private val menuList = mutableListOf<MenuItem>()
     private lateinit var db: FirebaseFirestore
-    private var restaurantId: String? = null
+
+    private var restaurantId = ""
+    private var restaurantName = ""
+    private var restaurantAddress = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,59 +31,58 @@ class MenuActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewMenu)
         btnViewCart = findViewById(R.id.btnViewCart)
+        db = FirebaseFirestore.getInstance()
+
+        restaurantId = intent.getStringExtra("restaurantId") ?: ""
+        restaurantName = intent.getStringExtra("restaurantName") ?: ""
+        restaurantAddress = intent.getStringExtra("restaurantAddress") ?: ""
+
+        if (restaurantId.isEmpty()) {
+            Toast.makeText(this, "Restaurant error", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+        // ✅ FIXED: YOU WERE MISSING THIS
+        CartManager.setCurrentRestaurant(restaurantId)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
+
         adapter = MenuAdapter(menuList) { menuItem ->
-            val cartItem = CartItem(
-                name = menuItem.name,
-                price = menuItem.price,
-                quantity = 1
+            CartManager.addToCart(
+                CartItem(menuItem.name, menuItem.price, 1)
             )
-            CartManager.addToCart(cartItem)
             Toast.makeText(this, "${menuItem.name} added to cart", Toast.LENGTH_SHORT).show()
         }
+
         recyclerView.adapter = adapter
+        loadMenuItems()
 
-        db = FirebaseFirestore.getInstance()
-        restaurantId = intent.getStringExtra("restaurantId")
-
-        if (restaurantId != null) {
-            CartManager.setCurrentRestaurant(restaurantId!!)
-            loadMenuItems(restaurantId!!)
-        } else {
-            Toast.makeText(this, "No restaurant selected", Toast.LENGTH_SHORT).show()
-        }
-
-        // ✅ View Cart button click
         btnViewCart.setOnClickListener {
-            val intent = Intent(this, CartActivity::class.java)
-            startActivity(intent)
+            val i = Intent(this, CartActivity::class.java)
+            i.putExtra("restaurantId", restaurantId)
+            i.putExtra("restaurantName", restaurantName)
+            i.putExtra("restaurantAddress", restaurantAddress)
+            startActivity(i)
         }
     }
 
-    private fun loadMenuItems(restaurantId: String) {
+    private fun loadMenuItems() {
         db.collection("restaurants")
             .document(restaurantId)
             .collection("menus")
             .get()
-            .addOnSuccessListener { result ->
+            .addOnSuccessListener {
                 menuList.clear()
-                for (document in result) {
-                    val name = document.getString("name") ?: ""
-                    val price = document.getDouble("price") ?: 0.0
-                    val imageUrl = document.getString("imageUrl") ?: ""
-
-                    menuList.add(MenuItem(name, price, imageUrl))
+                for (doc in it) {
+                    menuList.add(
+                        MenuItem(
+                            doc.getString("name") ?: "",
+                            doc.getDouble("price") ?: 0.0,
+                            doc.getString("imageUrl") ?: ""
+                        )
+                    )
                 }
-
-                if (menuList.isEmpty()) {
-                    Toast.makeText(this, "No menu items found", Toast.LENGTH_SHORT).show()
-                }
-
                 adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to load menu: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 }

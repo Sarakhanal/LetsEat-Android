@@ -4,10 +4,10 @@ import kr.ac.uc.letseat.models.CartItem
 
 object CartManager {
 
-    // 🔸 Map to store carts per restaurant (restaurantId → list of CartItems)
+    // Store carts per restaurant (restaurantId → cart items)
     private val cartsByRestaurant = mutableMapOf<String, MutableList<CartItem>>()
 
-    // 🔸 Tracks which restaurant the user is currently ordering from
+    // Tracks which restaurant the user is currently ordering from
     private var currentRestaurantId: String? = null
 
     /**
@@ -50,6 +50,7 @@ object CartManager {
     fun updateQuantity(name: String, newQuantity: Int) {
         val restaurantId = currentRestaurantId ?: return
         val cart = cartsByRestaurant[restaurantId] ?: return
+
         val item = cart.find { it.name == name }
         if (item != null) {
             item.quantity = newQuantity
@@ -57,16 +58,17 @@ object CartManager {
     }
 
     /**
-     * Remove a specific item from the current restaurant’s cart.
+     * Remove a specific item from the cart.
      */
     fun removeItem(name: String) {
         val restaurantId = currentRestaurantId ?: return
         val cart = cartsByRestaurant[restaurantId] ?: return
+
         cart.removeAll { it.name == name }
     }
 
     /**
-     * Clear the current restaurant’s cart only.
+     * Clear only the current restaurant's cart.
      */
     fun clearCartForRestaurant() {
         val restaurantId = currentRestaurantId ?: return
@@ -74,7 +76,7 @@ object CartManager {
     }
 
     /**
-     * Completely clear all carts (used when logging out or logging in again).
+     * Clear ALL carts (used on logout).
      */
     fun clearAllCarts() {
         cartsByRestaurant.clear()

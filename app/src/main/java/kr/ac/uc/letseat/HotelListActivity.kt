@@ -23,9 +23,12 @@ class HotelListActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewHotel)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
         adapter = RestaurantAdapter(restaurantList) { restaurant ->
             val intent = Intent(this, MenuActivity::class.java)
-            intent.putExtra("restaurantId", restaurant.id)  // ✅ Pass the ID properly
+            intent.putExtra("restaurantId", restaurant.id)
+            intent.putExtra("restaurantName", restaurant.name)
+            intent.putExtra("restaurantAddress", restaurant.address)
             startActivity(intent)
         }
 
@@ -36,17 +39,14 @@ class HotelListActivity : AppCompatActivity() {
     private fun loadRestaurants() {
         db.collection("restaurants")
             .get()
-            .addOnSuccessListener { documents ->
+            .addOnSuccessListener { docs ->
                 restaurantList.clear()
-                for (doc in documents) {
-                    val restaurant = doc.toObject(Restaurant::class.java)
-                    restaurant.id = doc.id // ✅ store Firestore doc id
-                    restaurantList.add(restaurant)
+                for (doc in docs) {
+                    val r = doc.toObject(Restaurant::class.java)
+                    r.id = doc.id
+                    restaurantList.add(r)
                 }
                 adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { e ->
-                e.printStackTrace()
             }
     }
 }

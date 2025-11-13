@@ -2,48 +2,69 @@ package kr.ac.uc.letseat.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import kr.ac.uc.letseat.R   // ✅ FIX: import correct R
+import com.google.firebase.auth.GoogleAuthProvider
+import kr.ac.uc.letseat.R
 
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var googleClient: GoogleSignInClient
+    private val RC_GOOGLE = 2002
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)  // ✅ make sure activity_signup.xml exists in res/layout
+        setContentView(R.layout.activity_signup)
 
         auth = FirebaseAuth.getInstance()
+        configureGoogleSignup()
 
-        val emailEditText = findViewById<EditText>(R.id.emailEditText)
-        val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
-        val signupButton = findViewById<Button>(R.id.signupButton)
+        val btnSignupGoogle = findViewById<Button>(R.id.btnSignupGoogle)
 
-        signupButton.setOnClickListener {
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
+        btnSignupGoogle.setOnClickListener {
+            val intent = googleClient.signInIntent
+            startActivityForResult(intent, RC_GOOGLE)
+        }
+    }
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            Log.d("SignupActivity", "Signup success ✅")
-                            val intent = Intent(this, LoginActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            val errorMessage = task.exception?.message ?: "Unknown error"
-                            Toast.makeText(this, "Signup failed: $errorMessage", Toast.LENGTH_LONG).show()
-                            Log.e("SignupActivity", "Signup failed", task.exception)
-                        }
+    private fun configureGoogleSignup() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleClient = GoogleSignIn.getClient(this, gso)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_GOOGLE) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            try {
+                val account = task.getResult(ApiException::class.java)
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+                auth.signInWithCredential(credential)
+                    .addOnSuccessListener {
+                        startActivity(Intent(this, HotelListActivity::class.java))
+                        finish()
                     }
-            } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Signup Failed", Toast.LENGTH_SHORT).show()
+                    }
+
+            } catch (e: Exception) {
+                Toast.makeText(this, "Google Signup Error", Toast.LENGTH_SHORT).show()
             }
         }
     }
