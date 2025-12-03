@@ -1,10 +1,11 @@
 package kr.ac.uc.letseat.models
 
 data class Restaurant(
-    var id: String = "",
-    var name: String = "",
-    var address: String = "",
-    var location: String = "",
-    var rating: Double = 0.0,
-    var imageUrl: String = ""
+    var id: String = "",          // CHANGE val → var  ✔️
+    val name: String = "",
+    val location: String = "",
+    val imageUrl: String = "",
+    val rating: Double = 4.5,
+    val ownerId: String = "",
+    val email: String = ""
 )

@@ -7,45 +7,55 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kr.ac.uc.letseat.R
 
 class DriverLoginActivity : AppCompatActivity() {
-
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_driver_login)
 
-        auth = FirebaseAuth.getInstance()
-
-        val etEmail = findViewById<EditText>(R.id.etDriverEmail)
-        val etPassword = findViewById<EditText>(R.id.etDriverPassword)
-        val btnLogin = findViewById<Button>(R.id.btnDriverLogin)
+        val edtEmail = findViewById<EditText>(R.id.edtEmail)
+        val edtPass = findViewById<EditText>(R.id.edtPassword)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
-            val email = etEmail.text.toString().trim()
-            val password = etPassword.text.toString().trim()
+            val email = edtEmail.text.toString()
+            val pass = edtPass.text.toString()
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Enter email & password", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(this, "Enter all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-                    val driverId = auth.currentUser?.uid ?: ""
-                    if (driverId.isEmpty()) {
-                        Toast.makeText(this, "Failed to get driver ID.", Toast.LENGTH_SHORT).show()
-                        return@addOnSuccessListener
+            FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(email, pass)
+                .addOnSuccessListener { result ->
+
+                    val uid = result.user!!.uid
+                    val db = FirebaseFirestore.getInstance()
+
+                    val driverDoc = db.collection("drivers").document(uid)
+
+                    driverDoc.get().addOnSuccessListener { doc ->
+
+                        if (!doc.exists()) {
+                            // AUTO-CREATE DRIVER DOCUMENT
+                            val data = mapOf(
+                                "uid" to uid,
+                                "active" to true
+                            )
+                            driverDoc.set(data)
+                        }
+
+                        // NOW OPEN DRIVER ORDERS SCREEN
+                        startActivity(Intent(this, DriverOrdersActivity::class.java))
+                        finish()
+
+                    }.addOnFailureListener {
+                        Toast.makeText(this, "Error checking driver record", Toast.LENGTH_SHORT).show()
                     }
-
-                    val intent = Intent(this, DriverHomeActivity::class.java)
-                    intent.putExtra("driverId", driverId)
-
-                    Toast.makeText(this, "Driver Login successful!", Toast.LENGTH_SHORT).show()
-                    startActivity(intent)
-                    finish()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Login failed: ${it.message}", Toast.LENGTH_SHORT).show()

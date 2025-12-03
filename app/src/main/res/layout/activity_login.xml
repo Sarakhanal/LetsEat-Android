@@ -2,79 +2,80 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:padding="24dp">
 
     <LinearLayout
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
-        <!-- App Title -->
+        <!-- LOGO -->
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/momo_logo"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- TITLE -->
         <TextView
             android:text="Let’s Eat"
-            android:textSize="28sp"
+            android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="#000000"
+            android:textColor="@color/text_dark"
+            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Choose your login type"
+            android:textSize="16sp"
+            android:textColor="@color/text_light"
             android:layout_marginBottom="40dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <!-- GOOGLE LOGIN BUTTON (LinearLayout) -->
-        <LinearLayout
-            android:id="@+id/btnGoogleLogin"
+
+        <!-- CUSTOMER BUTTON -->
+        <Button
+            android:id="@+id/btnCustomerLogin"
+            android:text="Customer Login"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="10dp"
+            android:layout_height="55dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_primary"
+            android:layout_marginBottom="20dp" />
+
+
+        <!-- OWNER BUTTON -->
+        <Button
+            android:id="@+id/btnOwnerLogin"
+            android:text="Owner Login"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textSize="18sp"
+            android:textColor="@color/primary_dark"
             android:background="@drawable/rounded_white"
-            android:elevation="4dp">
+            android:elevation="3dp"
+            android:layout_marginBottom="20dp" />
 
-            <ImageView
-                android:src="@drawable/ic_google"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginRight="12dp"/>
 
-            <TextView
-                android:text="Sign in with Google"
-                android:textSize="16sp"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <!-- Create Account -->
-        <TextView
-            android:id="@+id/tvCreateAccount"
-            android:text="New user? Create Account"
-            android:textSize="14sp"
-            android:textColor="#0077CC"
-            android:layout_marginTop="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <!-- Driver -->
-        <TextView
-            android:id="@+id/tvDriver"
-            android:text="Continue as Driver"
-            android:textColor="#0077CC"
-            android:textSize="14sp"
-            android:layout_marginTop="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Owner -->
-        <TextView
-            android:id="@+id/tvOwner"
-            android:text="Continue as Owner"
-            android:textColor="#0077CC"
-            android:textSize="14sp"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!-- DRIVER BUTTON -->
+        <Button
+            android:id="@+id/btnDriverLogin"
+            android:text="Driver Login"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textSize="18sp"
+            android:textColor="@color/primary_dark"
+            android:background="@drawable/rounded_white"
+            android:elevation="3dp"
+            android:layout_marginBottom="30dp" />
 
     </LinearLayout>
 </ScrollView>

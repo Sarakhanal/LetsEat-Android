@@ -4,53 +4,62 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kr.ac.uc.letseat.R
 import kr.ac.uc.letseat.models.CartItem
-import kr.ac.uc.letseat.ui.CartManager
 
 class CartAdapter(
-    private val cartItems: MutableList<CartItem>,
-    private val onCartUpdated: () -> Unit
-) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+    private val list: MutableList<CartItem>,
+    private val onCartChanged: () -> Unit
+) : RecyclerView.Adapter<CartAdapter.VH>() {
 
-    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val txtName: TextView = itemView.findViewById(R.id.textCartName)
-        val txtPrice: TextView = itemView.findViewById(R.id.textCartPrice)
-        val txtQuantity: TextView = itemView.findViewById(R.id.textCartQuantity)
-        val btnIncrease: Button = itemView.findViewById(R.id.btnIncrease)
-        val btnDecrease: Button = itemView.findViewById(R.id.btnDecrease)
+    inner class VH(v: View) : RecyclerView.ViewHolder(v) {
+        val img: ImageView = v.findViewById(R.id.imgCart)
+        val name: TextView = v.findViewById(R.id.txtCartName)
+        val price: TextView = v.findViewById(R.id.txtCartPrice)
+        val quantity: TextView = v.findViewById(R.id.txtQuantity)
+        val btnPlus: Button = v.findViewById(R.id.btnPlus)
+        val btnMinus: Button = v.findViewById(R.id.btnMinus)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val view = LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_cart, parent, false)
-        return CartViewHolder(view)
+        return VH(v)
     }
 
-    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        val item = cartItems[position]
-        holder.txtName.text = item.name
-        holder.txtPrice.text = "Rs. ${item.price * item.quantity}"
-        holder.txtQuantity.text = item.quantity.toString()
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        val item = list[position]
 
-        holder.btnIncrease.setOnClickListener {
-            CartManager.updateQuantity(item.name, item.quantity + 1)
-            notifyDataSetChanged()
-            onCartUpdated()
+        holder.name.text = item.name
+        holder.price.text = "Rs. ${item.price}"
+        holder.quantity.text = item.quantity.toString()
+
+        Glide.with(holder.itemView.context)
+            .load(item.imageUrl)
+            .placeholder(R.drawable.placeholder_food)
+            .error(R.drawable.placeholder_food)
+            .into(holder.img)
+
+        // ADD BUTTON
+        holder.btnPlus.setOnClickListener {
+            item.quantity++
+            holder.quantity.text = item.quantity.toString()
+            onCartChanged()
         }
 
-        holder.btnDecrease.setOnClickListener {
+        // REMOVE BUTTON
+        holder.btnMinus.setOnClickListener {
             if (item.quantity > 1) {
-                CartManager.updateQuantity(item.name, item.quantity - 1)
-            } else {
-                CartManager.removeItem(item.name)
+                item.quantity--
+                holder.quantity.text = item.quantity.toString()
+                onCartChanged()
             }
-            notifyDataSetChanged()
-            onCartUpdated()
         }
     }
 
-    override fun getItemCount(): Int = cartItems.size
+    override fun getItemCount() = list.size
 }

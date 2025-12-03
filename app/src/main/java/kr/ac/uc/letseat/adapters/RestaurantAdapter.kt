@@ -11,39 +11,39 @@ import kr.ac.uc.letseat.R
 import kr.ac.uc.letseat.models.Restaurant
 
 class RestaurantAdapter(
-    private val restaurantList: List<Restaurant>,
+    private val list: List<Restaurant>,
     private val onClick: (Restaurant) -> Unit
-) : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
+) : RecyclerView.Adapter<RestaurantAdapter.VH>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_hotel, parent, false)
-        return RestaurantViewHolder(view)
+    inner class VH(v: View) : RecyclerView.ViewHolder(v) {
+        val img: ImageView = v.findViewById(R.id.imgHotel)
+        val name: TextView = v.findViewById(R.id.txtHotelName)
+        val location: TextView = v.findViewById(R.id.txtHotelLocation)
+        val rating: TextView = v.findViewById(R.id.txtHotelRating)
     }
 
-    override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
-        val restaurant = restaurantList[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_hotel, parent, false)
+        return VH(view)
+    }
+
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        val restaurant = list[position]
 
         holder.name.text = restaurant.name
         holder.location.text = restaurant.location
         holder.rating.text = "⭐ ${restaurant.rating}"
 
-        Glide.with(holder.itemView.context)
+        Glide.with(holder.img)
             .load(restaurant.imageUrl)
-            .placeholder(R.drawable.placeholder_food)
-            .into(holder.image)
+            .placeholder(R.mipmap.ic_launcher)
+            .into(holder.img)
 
         holder.itemView.setOnClickListener {
             onClick(restaurant)
         }
     }
 
-    override fun getItemCount(): Int = restaurantList.size
-
-    class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.imageRestaurant)
-        val name: TextView = itemView.findViewById(R.id.txtRestaurantName)
-        val location: TextView = itemView.findViewById(R.id.txtRestaurantLocation)
-        val rating: TextView = itemView.findViewById(R.id.txtRestaurantRating)
-    }
+    override fun getItemCount() = list.size
 }

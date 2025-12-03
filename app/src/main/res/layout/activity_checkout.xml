@@ -1,36 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="24dp"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.CheckoutActivity">
+    android:gravity="center"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/labelTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Checkout Summary"
-        android:textSize="22sp"
+        android:id="@+id/txtTotalPrice"
+        android:text="Total: Rs. 0"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
-
-    <TextView
-        android:id="@+id/textPayAmount"
+        android:layout_marginBottom="30dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total: Rs. 0.00"
-        android:textSize="18sp"
-        android:layout_marginBottom="24dp"/>
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btnConfirmPayment"
+        android:id="@+id/btnConfirmOrder"
+        android:text="Confirm Order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CONFIRM PAYMENT"
-        android:backgroundTint="@color/purple_700"
-        android:textColor="@android:color/white" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
