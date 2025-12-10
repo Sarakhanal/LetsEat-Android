@@ -9,16 +9,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
 import kr.ac.uc.letseat.R
 
 class GoogleLoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleClient: GoogleSignInClient
+    private lateinit var btnGoogle: LinearLayout   // ⭐ FIXED: LinearLayout instead of Button
+
+    private val RC_SIGN_IN = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,7 @@ class GoogleLoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        val btnGoogle = findViewById<LinearLayout>(R.id.btnGoogleLogin)
+        btnGoogle = findViewById(R.id.btnGoogleLogin)  // ⭐ FIXED
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -36,45 +37,35 @@ class GoogleLoginActivity : AppCompatActivity() {
         googleClient = GoogleSignIn.getClient(this, gso)
 
         btnGoogle.setOnClickListener {
-            startActivityForResult(googleClient.signInIntent, 100)
+            val intent = googleClient.signInIntent
+            startActivityForResult(intent, RC_SIGN_IN)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 100) {
+        if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-
             try {
-                val account = task.getResult(ApiException::class.java)
+                val account = task.getResult(Exception::class.java)
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 
                 auth.signInWithCredential(credential)
-                    .addOnSuccessListener { result ->
-                        val user = result.user ?: return@addOnSuccessListener
-                        val uid = user.uid
+                    .addOnSuccessListener {
 
-                        val dataMap = mapOf(
-                            "email" to (user.email ?: ""),
-                            "name" to (user.displayName ?: "")
-                        )
+                        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
 
-                        FirebaseFirestore.getInstance()
-                            .collection("users")
-                            .document(uid)
-                            .set(dataMap)
-
-                        startActivity(Intent(this, HotelListActivity::class.java))
+                        val intent = Intent(this, LocationActivity::class.java)
+                        startActivity(intent)
                         finish()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Login Failed: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
 
             } catch (e: Exception) {
-                Toast.makeText(this, "Google login failed", Toast.LENGTH_SHORT).show()
-                Log.e("GOOGLE", "Error: ${e.message}")
+                Log.e("GoogleLogin", "Failed sign in: ${e.message}")
             }
         }
     }

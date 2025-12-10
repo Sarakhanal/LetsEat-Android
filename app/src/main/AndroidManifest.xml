@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LetsEat">
 
+        <!-- ADD THIS ⭐⭐ -->
+        <activity android:name=".ui.LocationActivity" />
+
         <!-- Launcher -->
         <activity
             android:name=".ui.MainActivity"
@@ -20,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <!-- ADD THIS -->
+        <!-- Google Login -->
         <activity android:name=".ui.GoogleLoginActivity" />
 
         <!-- CUSTOMER SCREENS -->
@@ -31,17 +34,14 @@
         <activity android:name=".ui.CheckoutActivity" />
         <activity android:name=".ui.WaitingActivity" />
 
-
-
-
         <!-- OWNER -->
         <activity android:name=".owner.OwnerLoginActivity" />
         <activity android:name=".owner.OwnerOrdersActivity" />
 
-
         <!-- DRIVER -->
         <activity android:name=".driver.DriverLoginActivity" />
         <activity android:name=".driver.DriverOrdersActivity" />
+
     </application>
 
 </manifest>

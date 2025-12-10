@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TOP HEADER -->
+    <!-- ⭐ REQUIRED TITLE (to fix your error) -->
     <TextView
-        android:id="@+id/txtHeader"
-        android:text="Restaurants"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="20dp"
-        android:textColor="@color/primary_dark"
-        android:background="@color/card_bg"
+        android:id="@+id/txtLocationTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Restaurants"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="16dp" />
 
-    <!-- LIST OF RESTAURANTS -->
+    <!-- Restaurants list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRestaurants"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="12dp"
-        android:clipToPadding="false" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
