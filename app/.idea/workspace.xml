@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="63d9e286-a205-4a43-bfab-b48fe2745935" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/CartActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/CartActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/CartManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/CartManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/CheckoutActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/CheckoutActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/DataStore.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/MenuActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/MenuActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/OrderStatusActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/OrderStatusActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/adapters/CartAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/adapters/CartAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/driver/DriverHomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/driver/DriverHomeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/driver/DriverOrderAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/driver/DriverOrderAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/models/CartItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/models/CartItem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/models/MenuItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/models/MenuItem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/owner/OwnerOrdersActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/owner/OwnerOrdersActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/owner/OwnerOrdersAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/ac/uc/letseat/owner/OwnerOrdersAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_cart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_cart.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_driver_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_driver_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_owner_orders.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_owner_orders.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_cart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_cart.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_owner_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_owner_order.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="35aT7IX9mF1tsWBbDrkpVREsYpF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="63d9e286-a205-4a43-bfab-b48fe2745935" name="Changes" comment="" />
+      <created>1763347014101</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763347014101</updated>
+    </task>
+    <servers />
+  </component>
+</project>

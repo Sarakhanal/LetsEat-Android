@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- LOGO -->
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/momo_logo"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- TITLE -->
+        <TextView
+            android:text="Let’s Eat"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_dark"
+            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="Choose your login type"
+            android:textSize="16sp"
+            android:textColor="@color/text_light"
+            android:layout_marginBottom="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <!-- CUSTOMER BUTTON -->
+        <Button
+            android:id="@+id/btnCustomerLogin"
+            android:text="Customer Login"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_primary"
+            android:layout_marginBottom="20dp" />
+
+
+        <!-- OWNER BUTTON -->
+        <Button
+            android:id="@+id/btnOwnerLogin"
+            android:text="Owner Login"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textSize="18sp"
+            android:textColor="@color/primary_dark"
+            android:background="@drawable/rounded_white"
+            android:elevation="3dp"
+            android:layout_marginBottom="20dp" />
+
+
+        <!-- DRIVER BUTTON -->
+        <Button
+            android:id="@+id/btnDriverLogin"
+            android:text="Driver Login"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textSize="18sp"
+            android:textColor="@color/primary_dark"
+            android:background="@drawable/rounded_white"
+            android:elevation="3dp"
+            android:layout_marginBottom="30dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/txtChooseLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Location"
+        android:textSize="24sp"
+        android:textColor="#222222"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentTop="true" />
+
+    <!-- Search Bar -->
+    <LinearLayout
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/rounded_box"
+        android:paddingHorizontal="16dp"
+        android:layout_below="@id/txtChooseLocation">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@android:drawable/ic_menu_search"
+            android:tint="#555555" />
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search locations..."
+            android:paddingStart="10dp"
+            android:background="@android:color/transparent"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- List of Locations -->
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/searchBar"
+        android:layout_above="@id/btnConfirm"
+        android:layout_marginTop="14dp"
+        android:divider="#DDDDDD"
+        android:dividerHeight="1dp" />
+
+    <!-- Confirm Button -->
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Confirm Location"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@drawable/btn_primary"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>
